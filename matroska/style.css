@@ -60,6 +60,7 @@ div#game {
     height: 500px;
     padding-top: 200px;
     grid-area: game;
+    overflow: hidden;
 }
 
 div#board {
