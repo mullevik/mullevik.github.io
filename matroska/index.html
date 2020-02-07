@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./style.css" type="text/css">
+    <link rel="icon" href="./icon.png" type="image/gif" sizes="64x64">
+    <title>Matroska Game</title>
+</head>
+<body>
+
+    <header>
+        <h1>Matroska Game</h1>
+        <p>a simple use-case of MiniMax search algorithm</p>
+    </header>
+
+    <div id="game">
+        <div id="board">
+
+            <div class="tile" style="left: 0px; top: 0px;"></div>
+            <div class="tile" style="left: 100px; top: 0px;"></div>
+            <div class="tile" style="left: 200px; top: 0px;"></div>
+            <div class="tile" style="left: 0px; top: 100px;"></div>
+            <div class="tile" style="left: 100px; top: 100px;"></div>
+            <div class="tile" style="left: 200px; top: 100px;"></div>
+            <div class="tile" style="left: 0px; top: 200px;"></div>
+            <div class="tile" style="left: 100px; top: 200px;"></div>
+            <div class="tile" style="left: 200px; top: 200px;"></div>
+          
+            <div class="figure team-max size-0" data-outside="true" data-x="0" data-y="0" data-team="max" data-size="0" style="left: 0px;">  <img src="./figure_red_small.png"></div>
+            <div class="figure team-max size-0" data-outside="true" data-x="0" data-y="0" data-team="max" data-size="0" style="left: 0px;"> <img src="./figure_red_small.png"></div>
+            <div class="figure team-max size-1" data-outside="true" data-x="0" data-y="0" data-team="max" data-size="1" style="left: 100px;"> <img src="./figure_red_medium.png"></div>
+            <div class="figure team-max size-1" data-outside="true" data-x="0" data-y="0" data-team="max" data-size="1" style="left: 100px;"><img src="./figure_red_medium.png"></div>
+            <div class="figure team-max size-2" data-outside="true" data-x="0" data-y="0" data-team="max" data-size="2" style="left: 200px;"><img src="./figure_red_large.png"></div>
+            <div class="figure team-max size-2" data-outside="true" data-x="0" data-y="0" data-team="max" data-size="2" style="left: 200px;"><img src="./figure_red_large.png"></div>
+            <div class="figure team-min size-0" data-outside="true" data-x="0" data-y="0" data-team="min" data-size="0" style="left: 0px;">  <img src="./figure_black_small.png"></div>
+            <div class="figure team-min size-0" data-outside="true" data-x="0" data-y="0" data-team="min" data-size="0" style="left: 0px;"> <img src="./figure_black_small.png"></div>
+            <div class="figure team-min size-1" data-outside="true" data-x="0" data-y="0" data-team="min" data-size="1" style="left: 100px;"> <img src="./figure_black_medium.png"></div>
+            <div class="figure team-min size-1" data-outside="true" data-x="0" data-y="0" data-team="min" data-size="1" style="left: 100px;"><img src="./figure_black_medium.png"></div>
+            <div class="figure team-min size-2" data-outside="true" data-x="0" data-y="0" data-team="min" data-size="2" style="left: 200px;"><img src="./figure_black_large.png"></div>
+            <div class="figure team-min size-2" data-outside="true" data-x="0" data-y="0" data-team="min" data-size="2" style="left: 200px;"><img src="./figure_black_large.png"></div>
+            
+            <div class="selection" data-x="0" data-y="0" style="left: 0px; top: 0px;"></div>
+            <div class="selection" data-x="1" data-y="0" style="left: 100px; top: 0px;"></div>
+            <div class="selection" data-x="2" data-y="0" style="left: 200px; top: 0px;"></div>
+            <div class="selection" data-x="0" data-y="1" style="left: 0px; top: 100px;"></div>
+            <div class="selection" data-x="1" data-y="1" style="left: 100px; top: 100px;"></div>
+            <div class="selection" data-x="2" data-y="1" style="left: 200px; top: 100px;"></div>
+            <div class="selection" data-x="0" data-y="2" style="left: 0px; top: 200px;"></div>
+            <div class="selection" data-x="1" data-y="2" style="left: 100px; top: 200px;"></div>
+            <div class="selection" data-x="2" data-y="2" style="left: 200px; top: 200px;"></div>
+        </div>
+
+        <div id="win-screen">
+            <img src="./figure_red_large.png" id="red-wins">
+            <img src="./figure_black_large.png" id="black-wins">
+            <h2>Has won the game.</h2>
+        </div>
+    </div>
+
+    <div id="game-options">
+
+        <h2>Game settings</h2>
+        
+        <div id="team-select">
+            <div id="team-max" data-cpu="true">
+                <p><span style="color: #a40f0f;">Red</span> player is:</p>
+                <img src="./cpu.png" id="team-max-image">
+                <p id="team-max-label">CPU</p>
+                <select id="team-max-difficulty">
+                    <option value="easy">Easy</option>
+                    <option value="medium" selected="selected">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>        
+            </div>
+            <div id="team-min" data-cpu="false">
+                <p><span style="color: #333333;">Black</span> player is:</p>
+                <img src="./human.png" id="team-min-image">
+                <p id="team-min-label">Human</p>
+                <select id="team-min-difficulty" style="opacity: 0;">
+                    <option value="easy">Easy</option>
+                    <option value="medium" selected="selected">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>        
+            </div>
+        </div>
+
+        <p>The settings will be applied after restart.</p>
+
+        <button id="restart">Restart the game</button>
+    </div>
+
+    <article id="project">
+        <h3>Rules of the game</h3>
+        <p>
+            This game for children follows similar rules to a 3x3 TicTacToe game with a little twist.
+            A player can move with any figure (matroska) of their color, even if the matroska is already placed on the board.
+            There is a limited number of matroskas for each player (two for each of the three sizes).
+        </p>
+        <p>
+            Matroska can be places on top of other matroskas if it's size is bigger than the size of the already placed matroska (placing matroskas of same color on top of each other is allowed).
+            A matroska which is below another matroska can not be moved.
+            A player must remember, if a matroska stands on top of another matroskas. There is no way to tell so after a matroska is placed.
+        </p>
+        <p>
+            The goal is to have a sequence of three matroskas (in a row, column or diagonal).
+        </p>
+        <p>
+            The red player moves first.
+        </p>
+
+        <h3>CPU player</h3>
+
+        <h4>Extensive normal-form game</h4>
+        <p>
+            This game can be represented as an extensive normal-form game (EFG) in which a single state of the board is represended by a GameState (a graph node) and each possible move in this GameState is represented by a MoveAction (a graph edge).
+            Number of possible moves differ depending on a particular GameState. For example, the initial GameState (an empty board) has 27 (9 board tiles times 3 matroska size types) possible actions.
+        </p>
+        <p>
+            There are two players in this game. The first player is maximizing the utility, the second player is minimizing the utility.
+        </p>
+        <p>
+            A terminal GameState is every state where the goal of the game is reached and one of the two players is a winner.
+        </p>
+
+        <h4>MiniMax algorithm</h4>
+        <p>
+            The MiniMax algorithm is used for solving this EFG. Since the branching factor of this game is quite big, the depth to which the Minimax algorithm expands must be limited.
+            When maximum depth is reached, MiniMax uses a heuristic function to calculate a utility estimate of the GameStates in this depth.
+        </p>
+        <p>
+            To reach bigger depths with the same computation time, the <b>alpha-beta pruning</b> of the game tree is used.
+            The order in which possible actions are expanded is random.
+            This has a room for improvement, since the order of action expansion has a significant effect on the efficiency of the alpha-beta pruning.
+        </p>
+        <p>
+            In addition to this, a <b>killer-move</b> heuristic is used in each depth to prioritize moves, which has caused an alpha-beta cutoff in the same depth in previously computed parts of the game tree.
+            In each depth, two distinct killer-move actions are kept in memory and tried in all subsequent GameStates before other actions.
+        </p>
+
+        <h4>Non-terminal utility heuristics</h4>
+        <p>
+            Another important part of this algorithm is the computation of utility for GameNodes which are not terminal (when the maximum depth of the MiniMax algorithm is reached).
+        </p>
+        <p>
+            The heuristic used in this example goes like this: For each top-most matroska of the maximizing-player add a value of the tile on which it stands (4 for middle, 3 for corner, 2 for the rest) and also add 2 for each adjacent matroskas of same color.
+            This heuristic can probably be improved.
+        </p>
+
+        <h4>Difficulty</h4>
+        <p>
+            Because of the speed limitations of javascript for this particular task, the maximum rechable depth of the MiniMax algorithm appears to be somewhere about eight.
+            This means, that the CPU player can simulate at most eight moves ahead.
+            Eight moves is not much, but it successfully imitates a human-player behaviour.
+        </p>
+        <p>
+            It should be possible to beat the CPU player, as the game requires more than eight moves to simulate completely.
+        </p>
+        <p>
+            The difficulty levels which can be set in game settings have the following number of simulated moves: easy - one simulated move, medium - two simulated moves, hard - eight simulated moves.
+        </p>
+
+    </article>
+    <article id="about">
+        
+        <h3>Disclaimer</h3>
+        <p>
+            This is just a fun project aimed at practising a real-example implementation of alpha-beta pruning.
+            The Matroska game was chosen as a simple, yet unfamiliar and tipically unknown game with very clear rules and small state-space, which makes it an ideal practice game for EFG algorithms.
+        </p>
+
+        <h4>Practised skills</h4>
+        <p>
+            Following technologies and techniques were used in the process of implementing this mini-project.
+        </p>
+        <ul>
+            <li>working with EFG represantations (game-theory basics),</li>
+            <li>javascript ES6,</li>
+            <li>OOP - for the game rules logic,</li>
+            <li>classical javascript web potato coding - for the in-browser game GUI,</li>
+            <li>CSS Griding - first experience with CSS Grid,</li>
+        </ul>
+
+    </article>
+
+</body>
+
+<script src="./game.js">
+</script>
+</html>
