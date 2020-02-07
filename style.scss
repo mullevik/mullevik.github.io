@@ -1,35 +1,37 @@
-body {
-    background-color: #555;
-  }
-  #artwork {
-    transform-origin: center;
-  }
-  #rectangle {
-    transform-origin: center;
-    animation: animation-rectangle 2000ms ease-in-out infinite;
-  }
-  @keyframes animation-rectangle {
-    0% {
+// animation duration controls the length of the entire animation
+$animation-duration: 2000ms;
 
-    }
-    100% {
-      /* transform: translateX(100px); */
-      transform: rotate(90deg);
-    }
-  }
-  #triangle {
+
+// The artwork layer controls the vertical movement and scale of the entire animation
+// .artwork {
+//   transform-origin: 0;
+//   animation: artwork $animation-duration ease-in-out infinite;
+// }
+
+#rectangle {
     transform-origin: center;
-    animation: animation-triangle 2000ms ease-in-out infinite;
-  }
-  @keyframes animation-triangle {
+    animation: animation-rectangle $animation-duration ease-in-out infinite;
+}
+
+@keyframes animation-rectangle {
     0% {
-      transform: rotate(0deg);
+        transform: scale(1);
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(360deg);
+    }
+    60% {
+        transform: scale(0);
     }
     100% {
-      transform: rotate(360deg);
+        transform: scale(0);
     }
-  }
-  body {
+}
+
+
+// Style
+body {
     background: #303845;
     display: flex;
     align-items: center;
@@ -65,4 +67,3 @@ body {
   .center-image {
     background: #1c232d;
   }
-  
