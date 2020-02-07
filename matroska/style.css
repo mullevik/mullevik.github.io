@@ -2,11 +2,17 @@ body {
     margin: auto;
     max-width: 1200px;
     display: grid;
-    grid-template-areas:
-    'header header'
-    'game game-options'
-    'project about';
 }
+
+body {
+    grid-template-areas:
+    'header'
+    'game'
+    'game-options'
+    'project'
+    'about';
+}
+
 
 /* typography */
 h1 {
@@ -237,7 +243,7 @@ header p {
 }
 
 article {
-    padding: 2em 3em 2em 3em;
+    padding: 2em 1.5em 2em 1.5em;
 }
 
 article#project {
@@ -246,4 +252,19 @@ article#project {
 
 article#about {
     grid-area: about;
+}
+
+
+
+@media only screen and (min-width: 768px) {
+    body {
+        grid-template-areas:
+        'header header'
+        'game game-options'
+        'project about';
+    }
+
+    article {
+        padding: 2em 3em 2em 3em;
+    }
 }
