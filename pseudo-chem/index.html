@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Pseudo-chem</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+        <script src="planner.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <p>Groups</p>
+<textarea id="groups" rows="10" cols="45">
+baseA = a b c
+baseB = e f g
+compH = h i j
+compK = k l m
+rareX = x y z
+rareU = u v w
+</textarea>
+
+        <p>Basic groups</p>
+        <textarea id="basic-groups" rows="1" cols="45">baseA baseB</textarea>
+
+        <p>Operators</p>
+<textarea id="operators" rows="20" cols="45">
+makeH: baseB a -> h
+makecompK: baseA g -> 2compK
+makecompH: 2compK h -> 2compH
+crushcompK: 2compH c -> compH a e
+
+makeX: 2a 2k 2m -> 5x
+makeY: j 2h g -> 3y
+makeW: i j 2l 2m -> 4w
+
+makeRareX_0: u 2compK -> x compK
+makeRareX_1: v 2compK -> y compK
+makeRareX_2: w 2compK -> z compK
+makeRareU: rareX l -> rareU
+
+
+</textarea>
+
+        <p>Initial</p>
+        <textarea id="initial" rows="1" cols="45"></textarea>
+        <p>Goal</p>
+        <textarea id="goal" rows="1" cols="45">5x 6y 3z</textarea>
+        <p>Limit</p>
+        <textarea id="limit" rows="1" cols="45">15</textarea>
+        <p></p>
+
+        <button id="solve">Solve</button>
+
+        <p>Output</p>
+        <textarea id="output" rows="45" cols="45"></textarea>
+        
+        <script type="text/javascript">
+
+            document.getElementById("solve").addEventListener("click", function() {
+                document.getElementById("output").value = "Solving...";
+                console.log("Solving");
+                const groupsText = document.getElementById("groups").value;
+                const basicGroupsText = document.getElementById("basic-groups").value;
+                const operatorsText = document.getElementById("operators").value;
+                const initialText = document.getElementById("initial").value;
+                const goalText = document.getElementById("goal").value;
+                const limitText = document.getElementById("limit").value;
+                
+                const g = Grouping.fromText(groupsText.split("\n"), basicGroupsText);
+
+                const allOperators = [];
+                for (let operatorText of operatorsText.split("\n")) {
+                    allOperators.push(Operator.fromText(operatorText, g));
+                }
+                const operators = allOperators.flat();
+                const Sg = State.fromText(goalText);
+                const Si = State.fromText(initialText);
+                console.log(Si);
+
+
+                const sequence = solve(g, operators, Si, Sg, parseInt(limitText));
+                if (sequence) {
+                    let out = "";
+                    for (let state of sequence.slice(1)) {
+                        out += `${state.operator}\n${state}\n`;
+                    }
+                    alert(":)");
+                    document.getElementById("output").value = out;
+                } else {
+                    alert("Nope :(");
+                    document.getElementById("output").value = "Nope :(";
+                }
+                console.log("done");
+            }, false);
+
+        </script>
+    </body>
+</html>
