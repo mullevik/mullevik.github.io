@@ -19,32 +19,32 @@
 
         <p>Groups</p>
 <textarea id="groups" rows="10" cols="45">
-baseA = a b c
-baseB = e f g
-compH = h i j
-compK = k l m
-rareX = x y z
-rareU = u v w
+oxid = o1 o2 o3
+hydrid = h1 h2 h3
+kyselina = k1 k2 k3
+sulfat = s1 s2 s3
+krystalohydrat = kh1 kh2 kh3
+halogenid = hl1 hl2 hl3
 </textarea>
 
         <p>Basic groups</p>
-        <textarea id="basic-groups" rows="1" cols="45">baseA baseB</textarea>
+        <textarea id="basic-groups" rows="1" cols="45">oxid hydrid</textarea>
 
         <p>Operators</p>
 <textarea id="operators" rows="20" cols="45">
-makeH: baseB a -> h
-makecompK: baseA g -> 2compK
-makecompH: 2compK h -> 2compH
-crushcompK: 2compH c -> compH a e
+vibrace: hydrid o1 -> k1
+odstredeni: oxid h3 -> 2sulfat
+cukernateni: 2sulfat k1 -> 2kyselina
+resonance: 2kyselina o3 -> kyselina o1 h1
 
-makeX: 2a 2k 2m -> 5x
-makeY: j 2h g -> 3y
-makeW: i j 2l 2m -> 4w
+inverze: 2o1 2s1 2s3 -> 5kh1
+energetizace: k3 2k1 h3 -> 3kh2
+horeni: k2 k3 2s2 2s3 -> 4kh3
 
-makeRareX_0: u 2compK -> x compK
-makeRareX_1: v 2compK -> y compK
-makeRareX_2: w 2compK -> z compK
-makeRareU: rareX l -> rareU
+vztlak_1: hl1 2sulfat -> kh1 sulfat
+vztlak_2: hl2 2sulfat -> kh2 sulfat
+vztlak_3: hl3 2sulfat -> kh3 sulfat
+geoaktivace: krystalohydrat s2 -> halogenid
 
 
 </textarea>
@@ -52,7 +52,7 @@ makeRareU: rareX l -> rareU
         <p>Initial</p>
         <textarea id="initial" rows="1" cols="45"></textarea>
         <p>Goal</p>
-        <textarea id="goal" rows="1" cols="45">5x 6y 3z</textarea>
+        <textarea id="goal" rows="1" cols="45"></textarea>
         <p>Limit</p>
         <textarea id="limit" rows="1" cols="45">15</textarea>
         <p></p>
